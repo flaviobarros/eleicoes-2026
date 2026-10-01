@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#08111f">
+  <title>Eleições 2026 — Contagem regressiva</title>
+  <meta name="description" content="Contagem regressiva para o 1º turno das Eleições Gerais de 2026 no Brasil.">
+  <meta property="og:title" content="Eleições 2026 — Contagem regressiva">
+  <meta property="og:description" content="Veja quanto falta para o início da votação do 1º turno, em 4 de outubro de 2026.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <style>
+    :root{color-scheme:dark;--bg:#07101f;--panel:#0f1b2e;--panel2:#14233b;--text:#f7f9fc;--muted:#aab7c8;--line:#263a58}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(circle at 50% -10%,#1f3658 0,transparent 38rem),var(--bg);color:var(--text);display:grid;place-items:center;padding:24px 16px}
+    main{width:min(760px,100%);text-align:center}
+    .eyebrow{text-transform:uppercase;letter-spacing:.18em;font-weight:700;color:var(--muted);font-size:.78rem;margin-bottom:10px}
+    h1{font-size:clamp(2rem,7vw,4.4rem);line-height:1;margin:0;letter-spacing:-.04em}
+    .subtitle{color:var(--muted);margin:14px auto 28px;max-width:38rem;line-height:1.5}
+    .countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 auto 24px}
+    .unit{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:18px;padding:20px 8px 16px}
+    .value{display:block;font-variant-numeric:tabular-nums;font-weight:800;font-size:clamp(2rem,8vw,4rem);line-height:1;letter-spacing:-.04em}
+    .label{display:block;margin-top:8px;color:var(--muted);font-size:clamp(.72rem,2.8vw,.95rem)}
+    .date{font-size:1.05rem;line-height:1.5;margin:4px 0}
+    .small{color:var(--muted);font-size:.9rem;line-height:1.5;margin:10px auto 0}
+    .secondary{margin:28px auto 0;padding-top:20px;border-top:1px solid var(--line);color:var(--muted)}
+    .secondary strong{color:var(--text)}
+    .actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:28px}
+    button,a.button{border:1px solid var(--line);background:var(--panel2);color:var(--text);font:inherit;font-weight:650;text-decoration:none;padding:12px 16px;border-radius:12px;cursor:pointer;min-height:46px}
+    button:hover,a.button:hover{filter:brightness(1.12)}
+    footer{color:var(--muted);margin-top:26px;font-size:.78rem;line-height:1.5}
+    footer a{color:inherit}
+    @media(max-width:460px){.countdown{grid-template-columns:repeat(2,1fr)}}
+  </style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Brasil · Eleições Gerais 2026</div>
+  <h1>Falta pouco.</h1>
+  <p class="subtitle">Contagem regressiva para o início da votação do 1º turno.</p>
+
+  <section class="countdown" aria-label="Contagem regressiva para o primeiro turno" aria-live="polite">
+    <div class="unit"><span class="value" id="days">--</span><span class="label">dias</span></div>
+    <div class="unit"><span class="value" id="hours">--</span><span class="label">horas</span></div>
+    <div class="unit"><span class="value" id="minutes">--</span><span class="label">minutos</span></div>
+    <div class="unit"><span class="value" id="seconds">--</span><span class="label">segundos</span></div>
+  </section>
+
+  <p class="date"><strong>1º turno: 4 de outubro de 2026, às 8h</strong></p>
+  <p class="small">Horário de Brasília. A votação ocorre das 8h às 17h.</p>
+
+  <div class="secondary">Eventual 2º turno: <strong>25 de outubro de 2026</strong>.</div>
+
+  <div class="actions">
+    <button type="button" id="share">Compartilhar</button>
+    <a class="button" href="https://www.tse.jus.br/eleicoes/cde-2026" target="_blank" rel="noopener">Fonte: TSE</a>
+  </div>
+
+  <footer>Página informativa e apartidária. Datas e horários conforme o Tribunal Superior Eleitoral.</footer>
+</main>
+
+<script>
+(() => {
+  const start = new Date("2026-10-04T08:00:00-03:00").getTime();
+  const end = new Date("2026-10-04T17:00:00-03:00").getTime();
+  const $ = id => document.getElementById(id);
+  const d=$("days"),h=$("hours"),m=$("minutes"),s=$("seconds");
+  const subtitle=document.querySelector(".subtitle");
+  const pad=n=>String(n).padStart(2,"0");
+
+  function render(ms){
+    const total=Math.max(0,Math.floor(ms/1000));
+    d.textContent=pad(Math.floor(total/86400));
+    h.textContent=pad(Math.floor((total%86400)/3600));
+    m.textContent=pad(Math.floor((total%3600)/60));
+    s.textContent=pad(total%60);
+  }
+
+  function update(){
+    const now=Date.now();
+    if(now<start){render(start-now);subtitle.textContent="Contagem regressiva para o início da votação do 1º turno.";return}
+    if(now<end){render(end-now);subtitle.textContent="A votação está em andamento. Tempo até as 17h, horário de Brasília:";return}
+    render(0);subtitle.textContent="O 1º turno das Eleições 2026 foi encerrado.";
+  }
+
+  update();
+  setInterval(update,1000);
+
+  $("share").addEventListener("click",async()=>{
+    const data={title:"Eleições 2026 — Contagem regressiva",text:"Veja quanto falta para o 1º turno das Eleições 2026:",url:location.href};
+    if(navigator.share){try{await navigator.share(data)}catch(_){}}else{
+      window.open("https://wa.me/?text="+encodeURIComponent(data.text+" "+data.url),"_blank","noopener");
+    }
+  });
+})();
+</script>
+</body>
+</html>
