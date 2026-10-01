@@ -40,7 +40,7 @@
 <main>
   <div class="eyebrow">Brasil · Eleições Gerais 2026</div>
   <div class="headline"><h1>Falta pouco.</h1><span class="total-hours" id="totalHours">-- horas</span></div>
-  <p class="subtitle">Contagem regressiva para o início da votação do 1º turno.</p>
+  <p class="subtitle">Contagem regressiva de 72 horas para o 1º turno.</p>
 
   <section class="countdown" aria-label="Contagem regressiva para o primeiro turno" aria-live="polite">
     <div class="unit"><span class="value" id="days">--</span><span class="label">dias</span></div>
@@ -64,7 +64,7 @@
 
 <script>
 (() => {
-  const start = new Date("2026-10-04T08:00:00-03:00").getTime();
+  const start = new Date("2026-10-04T10:13:08-03:00").getTime();
   const end = new Date("2026-10-04T17:00:00-03:00").getTime();
   const $ = id => document.getElementById(id);
   const d=$("days"),h=$("hours"),m=$("minutes"),s=$("seconds"),totalHours=$("totalHours");
@@ -83,7 +83,7 @@
 
   function update(){
     const now=Date.now();
-    if(now<start){render(start-now);subtitle.textContent="Contagem regressiva para o início da votação do 1º turno.";return}
+    if(now<start){render(start-now);subtitle.textContent="Contagem regressiva de 72 horas para o 1º turno.";return}
     if(now<end){render(end-now);subtitle.textContent="A votação está em andamento. Tempo até as 17h, horário de Brasília:";return}
     render(0);subtitle.textContent="O 1º turno das Eleições 2026 foi encerrado.";
   }
