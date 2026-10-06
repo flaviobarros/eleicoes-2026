@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#08111f">
   <title>Eleições 2026 — Contagem regressiva</title>
-  <meta name="description" content="Contagem regressiva para o 1º turno das Eleições Gerais de 2026 no Brasil.">
+  <meta name="description" content="Contagem regressiva para o 2º turno das Eleições Gerais de 2026 no Brasil.">
   <meta property="og:title" content="Eleições 2026 — Contagem regressiva">
-  <meta property="og:description" content="Veja quanto falta para o início da votação do 1º turno, em 4 de outubro de 2026.">
+  <meta property="og:description" content="Veja quanto falta para o início da votação do 2º turno, em 4 de outubro de 2026.">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
   <style>
@@ -40,19 +40,19 @@
 <main>
   <div class="eyebrow">Brasil · Eleições Gerais 2026</div>
   <div class="headline"><h1>Falta pouco.</h1><span class="total-hours" id="totalHours">-- horas</span></div>
-  <p class="subtitle">Contagem regressiva para o início da votação do 1º turno.</p>
+  <p class="subtitle">Contagem regressiva para o início da votação do 2º turno.</p>
 
-  <section class="countdown" aria-label="Contagem regressiva para o primeiro turno" aria-live="polite">
+  <section class="countdown" aria-label="Contagem regressiva para o segundo turno" aria-live="polite">
     <div class="unit"><span class="value" id="days">--</span><span class="label">dias</span></div>
     <div class="unit"><span class="value" id="hours">--</span><span class="label">horas</span></div>
     <div class="unit"><span class="value" id="minutes">--</span><span class="label">minutos</span></div>
     <div class="unit"><span class="value" id="seconds">--</span><span class="label">segundos</span></div>
   </section>
 
-  <p class="date"><strong>1º turno: 4 de outubro de 2026, às 8h</strong></p>
+  <p class="date"><strong>2º turno: 25 de outubro de 2026, às 8h</strong></p>
   <p class="small">Horário de Brasília. A votação ocorre das 8h às 17h.</p>
 
-  <div class="secondary">Eventual 2º turno: <strong>25 de outubro de 2026</strong>.</div>
+  <div class="secondary">2º turno das Eleições Gerais de 2026.</div>
 
   <div class="actions">
     <button type="button" id="share">Compartilhar</button>
@@ -64,8 +64,8 @@
 
 <script>
 (() => {
-  const start = new Date("2026-10-04T08:00:00-03:00").getTime();
-  const end = new Date("2026-10-04T17:00:00-03:00").getTime();
+  const start = new Date("2026-10-25T08:00:00-03:00").getTime();
+  const end = new Date("2026-10-25T17:00:00-03:00").getTime();
   const $ = id => document.getElementById(id);
   const d=$("days"),h=$("hours"),m=$("minutes"),s=$("seconds"),totalHours=$("totalHours");
   const subtitle=document.querySelector(".subtitle");
@@ -83,16 +83,16 @@
 
   function update(){
     const now=Date.now();
-    if(now<start){render(start-now);subtitle.textContent="Contagem regressiva para o início da votação do 1º turno.";return}
+    if(now<start){render(start-now);subtitle.textContent="Contagem regressiva para o início da votação do 2º turno.";return}
     if(now<end){render(end-now);subtitle.textContent="A votação está em andamento. Tempo até as 17h, horário de Brasília:";return}
-    render(0);subtitle.textContent="O 1º turno das Eleições 2026 foi encerrado.";
+    render(0);subtitle.textContent="O 2º turno das Eleições 2026 foi encerrado.";
   }
 
   update();
   setInterval(update,1000);
 
   $("share").addEventListener("click",async()=>{
-    const data={title:"Eleições 2026 — Contagem regressiva",text:"Veja quanto falta para o 1º turno das Eleições 2026:",url:location.href};
+    const data={title:"Eleições 2026 — Contagem regressiva",text:"Veja quanto falta para o 2º turno das Eleições 2026:",url:location.href};
     if(navigator.share){try{await navigator.share(data)}catch(_){}}else{
       window.open("https://wa.me/?text="+encodeURIComponent(data.text+" "+data.url),"_blank","noopener");
     }
